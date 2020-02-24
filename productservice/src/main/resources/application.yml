@@ -8,6 +8,8 @@ spring.jmx:
 spring.datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:bootexample;MODE=MySQL
+    username: sa
+    password: 
 
 server:
   port: 8090
@@ -16,6 +18,10 @@ server:
 security:
   basic:
     enabled: false
+
+#spring.jpa.properties.javax.persistence.schema-generation.scripts:
+#  action: create
+#  create-target: /home/debottamr/git/springmicro/productservice/src/main/resources/create.sql
 
 #management endpoints on a separate port
 management:
@@ -43,9 +49,11 @@ spring:
   h2:
     console:
       enabled: true
+      path: /h2
 
-spring.jpa:
-    hibernate.ddl-auto: create-drop
+#spring.jpa:
+#    hibernate.ddl-auto: create-drop
+#    hibernate.ddl-auto: update
 
 hotel.service:
   name: 'test profile:'
