@@ -1,4 +1,4 @@
-package com.app.dao;
+package com.app.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import com.app.model.Product;

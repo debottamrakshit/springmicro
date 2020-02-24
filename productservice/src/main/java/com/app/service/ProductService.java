@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.dao.ProductRepository;
 import com.app.model.Product;
+import com.app.repository.ProductRepository;
 
 @Service
 public class ProductService {
@@ -25,5 +25,9 @@ public class ProductService {
 	
 	public Product saveProduct(Product product) {
 		return productRepository.save(product);
+	}
+
+	public void delete(Product product) {
+		productRepository.delete(product);
 	}
 }
