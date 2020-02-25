@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@Entity
+@Entity(name="orders")
 @ApiModel(description = "All details about the Product. ")
 public class Order {
 

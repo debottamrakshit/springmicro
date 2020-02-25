@@ -1,0 +1,58 @@
+2020-02-25 04:01:21.277  INFO 15877 --- [restartedMain] com.app.ProductServiceApplication        : No active profile set, falling back to default profiles: default
+2020-02-25 04:01:21.749  INFO 15877 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-02-25 04:01:21.757  INFO 15877 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 1 repository interfaces.
+2020-02-25 04:01:21.876  INFO 15877 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=d3fbf165-01be-3d08-a30c-6b2d57c1da40
+2020-02-25 04:01:21.919  INFO 15877 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 04:01:21.961  WARN 15877 --- [restartedMain] org.apache.tomcat.util.modeler.Registry  : The MBean registry cannot be disabled because it has already been initialised
+2020-02-25 04:01:22.005  INFO 15877 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2020-02-25 04:01:22.010  INFO 15877 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-02-25 04:01:22.011  INFO 15877 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-02-25 04:01:22.017  INFO 15877 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-02-25 04:01:22.017  INFO 15877 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 735 ms
+2020-02-25 04:01:22.084  INFO 15877 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2020-02-25 04:01:22.086  INFO 15877 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2020-02-25 04:01:22.086  INFO 15877 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:mem:bootexample'
+2020-02-25 04:01:22.249  INFO 15877 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-02-25 04:01:22.254  INFO 15877 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-02-25 04:01:22.281  INFO 15877 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-02-25 04:01:22.281  INFO 15877 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-02-25 04:01:22.386  WARN 15877 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-02-25 04:01:22.447  INFO 15877 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-02-25 04:01:22.473  INFO 15877 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-02-25 04:01:22.482  WARN 15877 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2020-02-25 04:01:22.483  INFO 15877 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-02-25 04:01:22.526  INFO 15877 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-25 04:01:22.531  WARN 15877 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2020-02-25 04:01:22.620  WARN 15877 --- [restartedMain] ockingLoadBalancerClientRibbonWarnLogger : You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2020-02-25 04:01:22.647  INFO 15877 --- [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2020-02-25 04:01:22.649  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2020-02-25 04:01:22.660  INFO 15877 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2020-02-25 04:01:22.660  INFO 15877 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2020-02-25 04:01:22.660  INFO 15877 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2020-02-25 04:01:22.660  INFO 15877 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2020-02-25 04:01:22.792  INFO 15877 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2020-02-25 04:01:22.793  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2020-02-25 04:01:22.793  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2020-02-25 04:01:22.793  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2020-02-25 04:01:22.793  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2020-02-25 04:01:22.793  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2020-02-25 04:01:22.793  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2020-02-25 04:01:22.794  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2020-02-25 04:01:22.798  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2020-02-25 04:01:22.802  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2020-02-25 04:01:22.803  INFO 15877 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2020-02-25 04:01:22.806  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1582632082806 with initial instances count: 2
+2020-02-25 04:01:22.808  INFO 15877 --- [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application PRODUCTSERVICE with eureka with status UP
+2020-02-25 04:01:22.808  INFO 15877 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1582632082808, current=UP, previous=STARTING]
+2020-02-25 04:01:22.809  INFO 15877 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCTSERVICE/debottamr.brickred:productservice:8090: registering service...
+2020-02-25 04:01:22.810  INFO 15877 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-02-25 04:01:22.812  INFO 15877 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-02-25 04:01:22.823  INFO 15877 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-02-25 04:01:22.827  INFO 15877 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCTSERVICE/debottamr.brickred:productservice:8090 - registration status: 204
+2020-02-25 04:01:22.883  INFO 15877 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2020-02-25 04:01:22.883  INFO 15877 --- [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8090
+2020-02-25 04:01:22.884  INFO 15877 --- [restartedMain] com.app.ProductServiceApplication        : Started ProductServiceApplication in 1.734 seconds (JVM running for 614.555)
+2020-02-25 04:01:22.888  INFO 15877 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-02-25 04:01:38.453  INFO 15877 --- [http-nio-8090-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-02-25 04:01:38.453  INFO 15877 --- [http-nio-8090-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-02-25 04:01:38.458  INFO 15877 --- [http-nio-8090-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms

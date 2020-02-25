@@ -1,11 +1,15 @@
-
-
 server:
   port: 8091 
   
 feign:
     hystrix:       
         enabled: false
+    client:
+      config:
+        product-service:
+          connectTimeout: 5000
+          readTimeout: 5000
+          loggerLevel: basic     
 
 spring:
   jpa:
@@ -31,6 +35,14 @@ eureka:
       leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION
       preferIpAddress: true
       appname: productservice
+
+#spring.jpa:
+#    hibernate.ddl-auto: create-drop
+#    hibernate.ddl-auto: update
+
+#spring.jpa.properties.javax.persistence.schema-generation.scripts:
+#  action: create
+#  create-target: /home/debottamr/git/springmicro/orderservice/src/main/resources/create.sql
 
 logging:
   file: boot_example.log

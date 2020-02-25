@@ -34,17 +34,17 @@ public class OrderController {
 
 
 
-	@ApiOperation(value = "Get a product by Id")
+	@ApiOperation(value = "Get a Order by Id")
 	@GetMapping("/orders/{id}")
-	public ResponseEntity<Order> getOrder(@ApiParam(value = "Retrieve Order by order id", required = true) @PathVariable long id) throws ResourceNotFoundException {
-		Order product = orderService.getOrder(id).orElseThrow(() -> new ResourceNotFoundException("Order not found for this id :: " + id));
+	public ResponseEntity<ProductDTO> getOrder(@ApiParam(value = "Retrieve Order by order id", required = true) @PathVariable long id) throws ResourceNotFoundException {
+		//Order product = orderService.getOrder(id).orElseThrow(() -> new ResourceNotFoundException("Order not found for this id :: " + id));
 		ProductDTO product2 = productServiceClient.getProduct("1");
-		return ResponseEntity.ok().body(product);
+		return ResponseEntity.ok().body(product2);
 	}
 
 	@ApiOperation(value = "Add an product")
-	@PostMapping("/products")
-	public Order saveProduct(@ApiParam(value = "Product object store in database table", required = true) @RequestBody @Valid OrderDTO order) {
+	@PostMapping("/orders")
+	public Order saveProduct(@ApiParam(value = "Order object store in database table", required = true) @RequestBody @Valid OrderDTO order) {
 		return orderService.saveOrder(order);
 	}
 	

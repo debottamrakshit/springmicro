@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.app.dto.ProductDTO;
 
 
-@FeignClient(name = "product-service",
-fallback = ProductServiceClient.ProductServiceClientFallback.class)
+@FeignClient(name = "PRODUCTSERVICE"
+,
+fallback = ProductServiceClient.ProductServiceClientFallback.class
+)
 public interface ProductServiceClient {
 	
      Logger logger = Logger.getLogger(ProductServiceClient.class
             .getName());
 	
 
-	@RequestMapping(method = RequestMethod.GET, value = "/products/{custid}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/products/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	ProductDTO getProduct(@PathVariable("id") String id);
 
 /**

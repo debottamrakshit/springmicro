@@ -6,33 +6,19 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
   server:
-    enableSelfPreservation: false
+    enableSelfPreservation: true
   instance:
     hostname: localhost         #${discovery.hostname:localhost}
+  healthcheck:
+      enabled: true
 
 management:
   security:
     enabled: false
   
 spring:
-  profiles:
-    active: "dev"
   main:
-    banner-mode: "off"  
-
-spring:
-  profiles: dev
+    banner-mode: "off" 
   application:
-     name: discovery-service
-  thymeleaf:
-    enabled: false
-        
-spring:
-  profiles: docker
-  application:
-     name: discovery-service
-  thymeleaf:
-    enabled: false
-    
+    name: discovery-service 
 
-    
