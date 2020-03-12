@@ -1,8 +1,12 @@
 spring:
   application:
     name: bank-service
+  zipkin:
+    baseUrl: http://localhost:9411/
+
 server:
   port: 8081
+
 eureka:
   client:
     serviceUrl:

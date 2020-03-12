@@ -1,6 +1,9 @@
-server:
+spring:
   application:
     name: eureka-server-1
+  zipkin:
+    baseUrl: http://localhost:9411/
+server:
   port: 8761
 eureka:
   client:
