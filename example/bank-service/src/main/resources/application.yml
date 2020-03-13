@@ -3,6 +3,11 @@ spring:
     name: bank-service
   zipkin:
     baseUrl: http://localhost:9411/
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/auth/realms/microserviceexample/protocol/openid-connect/certs
 
 server:
   port: 8081

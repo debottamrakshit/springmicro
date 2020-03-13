@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/bank")
 public class TestController {
 
 	final Logger log = LoggerFactory.getLogger(TestController.class);
-	
+
 	@Autowired
 	private Environment environment;
 

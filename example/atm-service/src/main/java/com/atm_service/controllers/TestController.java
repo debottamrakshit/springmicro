@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.atm_service.client.BankClient;
 
 @RestController
+@RequestMapping("/atm")
 public class TestController {
 	
 	final Logger log = LoggerFactory.getLogger(TestController.class);
