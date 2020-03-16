@@ -18,8 +18,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/login**").permitAll().antMatchers("/atm/**").authenticated().and()
-				.oauth2ResourceServer().jwt();
+	//	http.authorizeRequests().antMatchers("/", "/login**").permitAll().antMatchers("/atm/**").authenticated().and()
+		//.oauth2ResourceServer().jwt().jwtAuthenticationConverter(new KeycloakAuthoritiesExtractor());
+
+		http.authorizeRequests().antMatchers("/", "/login**").permitAll()
+				.antMatchers("/atm/getAvailableBalance").hasRole("USER")
+				.antMatchers("/atm/welcome").hasAnyRole("ADMIN", "USER")
+				.and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(new KeycloakAuthoritiesExtractor());
+
 	}
 
 	@Bean
