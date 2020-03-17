@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    config:
+      name: bank-service
+      uri: http://localhost:8888
