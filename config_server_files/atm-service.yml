@@ -29,4 +29,10 @@ eureka:
     preferIpAddress: true
   server:
     eviction-interval-timer-in-ms: 1000
-  
+
+management:
+  endpoints:
+    web:
+      base-path: /atm
+      exposure:
+        include: "*"

@@ -1,10 +1,102 @@
 version: "2.2"
 
+volumes:
+   mysql_data:
+    driver: local
+
 services:
+   elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+    container_name: elasticsearch
+    ports: 
+      - "9200:9200"
+    networks:
+      - private-cloud-network
+
+   kibana:
+    image: docker.elastic.co/kibana/kibana:7.6.1
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+    networks:
+      - private-cloud-network
+    depends_on:
+      - elasticsearch
+
+   logstash:
+    image: docker.elastic.co/logstash/logstash:7.6.1
+    container_name: logstash
+    ports:
+      - "5000:5000"
+    environment:
+      - 'input { tcp { port => 5000 codec => "json" } } output { elasticsearch { hosts => ["elasticsearch:9200"] index => "micro-%{serviceName}"} }'
+    networks:
+      - private-cloud-network
+    depends_on:
+      - elasticsearch
+
+   zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=elasticsearch:9200
+    networks:
+      - private-cloud-network
+    depends_on:
+      - elasticsearch
+  
+   config-server:
+    build: ./config-server 
+    ports:
+      - "8888:8888"
+    networks:
+      - private-cloud-network
+      
+
+   mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+    networks:
+      - private-cloud-network
+
+   keycloak:
+    image: jboss/keycloak
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+    networks:
+      - private-cloud-network
+   
    eureka-server-1:
     build: ./eurekaserver 
     ports:
       - "8761:8761"
+    environment:
+      spring.zipkin.baseUrl: http://localhost:9411/
+      LOGSTASH_URL: logstash:5000
+    depends_on:
+      - config-server
+      - zipkin
     networks:
       - private-cloud-network
       
@@ -14,10 +106,15 @@ services:
       - "8082:8082"
     depends_on:
       - eureka-server-1
+      - zipkin
     links:
       - eureka-server-1
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server-1:8761/eureka/
+      spring.cloud.config.uri: http://config-server:8888
+      spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://keycloak:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
+      spring.zipkin.baseUrl: http://localhost:9411/
+      LOGSTASH_URL: logstash:5000
     networks:
       - private-cloud-network
       
@@ -27,23 +124,31 @@ services:
       - "8081:8081"
     depends_on:
       - eureka-server-1
+      - zipkin
     links:
       - eureka-server-1
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server-1:8761/eureka/
+      spring.cloud.config.uri: http://config-server:8888
+      spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://keycloak:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
+      spring.zipkin.baseUrl: http://localhost:9411/
+      LOGSTASH_URL: logstash:5000
     networks:
       - private-cloud-network
       
-   bank-service:
-    build: ./bank-service-2
+   gateway-service:
+    build: ./gateway
     ports:
-      - "8083:8083"
+      - "8084:8084"
     depends_on:
       - eureka-server-1
+      - zipkin
     links:
       - eureka-server-1
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server-1:8761/eureka/
+      spring.cloud.config.uri: http://config-server:8888
+      spring.zipkin.baseUrl: http://localhost:9411/
     networks:
       - private-cloud-network
       
@@ -51,3 +156,4 @@ services:
 networks:
   private-cloud-network:
      driver: bridge
+

@@ -1,4 +1,4 @@
 FROM openjdk:8-jdk-alpine
-ADD target/bank-service-2-0.0.1-SNAPSHOT.jar bank-service-2.jar
-ENTRYPOINT ["java", "-jar", "/bank-service-2.jar"]
-EXPOSE 8083
+ADD target/config-server-0.0.1-SNAPSHOT.jar config-server.jar
+ENTRYPOINT ["java", "-jar", "/config-server.jar"]
+EXPOSE 8888

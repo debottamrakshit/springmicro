@@ -3,6 +3,17 @@ spring:
     name: gateway-service
   zipkin:
     baseUrl: http://localhost:9411/
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    databasePlatform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 server:
   port: 8084
@@ -28,3 +39,17 @@ zuul:
       path: /bank/**
       serviceId: bank-service
       strip-prefix: false
+  ratelimit:
+    enabled: true
+    repository: JPA
+    policy-list:
+      atm:
+        - limit: 5
+          refresh-interval: 60
+          type:
+            - origin
+      bank:
+        - limit: 1
+          refresh-interval: 2
+          type:
+            - origin
