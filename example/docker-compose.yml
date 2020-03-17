@@ -1,0 +1,53 @@
+version: "2.2"
+
+services:
+   eureka-server-1:
+    build: ./eurekaserver 
+    ports:
+      - "8761:8761"
+    networks:
+      - private-cloud-network
+      
+   atm-service:
+    build: ./atm-service 
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka-server-1
+    links:
+      - eureka-server-1
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server-1:8761/eureka/
+    networks:
+      - private-cloud-network
+      
+   bank-service:
+    build: ./bank-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server-1
+    links:
+      - eureka-server-1
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server-1:8761/eureka/
+    networks:
+      - private-cloud-network
+      
+   bank-service:
+    build: ./bank-service-2
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka-server-1
+    links:
+      - eureka-server-1
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server-1:8761/eureka/
+    networks:
+      - private-cloud-network
+      
+   
+networks:
+  private-cloud-network:
+     driver: bridge
