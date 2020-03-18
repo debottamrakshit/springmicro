@@ -11,8 +11,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/", "/login**").permitAll().antMatchers("/bank/**").authenticated().and()
-				.oauth2ResourceServer().jwt();
+		http.authorizeRequests().antMatchers("/", "/login**").permitAll()
+		.antMatchers("/bank/getAvailableBalance").hasRole("USER")
+		.antMatchers("/bank/welcome").hasAnyRole("ADMIN", "USER")
+		.and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(new KeycloakAuthoritiesExtractor());
+
 
 	}
 }

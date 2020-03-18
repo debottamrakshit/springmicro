@@ -23,7 +23,7 @@ public class RibbonConfiguration {
 	@Bean
 	public IPing pingConfiguration() {
 
-		String pingPath = "/actuator/health";
+		String pingPath = "/bank/health";
 		IPing ping = new PingUrl(false, pingPath);
 		return ping;
 
