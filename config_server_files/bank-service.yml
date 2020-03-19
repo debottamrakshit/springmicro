@@ -7,7 +7,12 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8180/auth/realms/microserviceexample/protocol/openid-connect/certs
+          jwk-set-uri: http://localhost:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: bank_db
 
 server:
   port: 8081

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
@@ -18,13 +19,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-	//	http.authorizeRequests().antMatchers("/", "/login**").permitAll().antMatchers("/atm/**").authenticated().and()
-		//.oauth2ResourceServer().jwt().jwtAuthenticationConverter(new KeycloakAuthoritiesExtractor());
 
-		http.authorizeRequests().antMatchers("/", "/login**").permitAll()
-				.antMatchers("/atm/getAvailableBalance").hasRole("USER")
-				.antMatchers("/atm/welcome").hasAnyRole("ADMIN", "USER")
-				.and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(new KeycloakAuthoritiesExtractor());
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
+				.authorizeRequests().antMatchers("/", "/login**").permitAll().antMatchers("/atm/getAvailableBalance")
+				.hasRole("USER").antMatchers("/atm/welcome").hasAnyRole("ADMIN", "USER").and().oauth2ResourceServer()
+				.jwt().jwtAuthenticationConverter(new KeycloakAuthoritiesExtractor());
 
 	}
 
