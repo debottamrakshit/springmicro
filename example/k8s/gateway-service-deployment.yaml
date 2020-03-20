@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gateway-service
+  name: gateway-service
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 30115
+    port: 8084
+    targetPort: 8084
+  selector:
+    app: gateway-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway-service
+  name: gateway-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-service
+  template:
+    metadata:
+      labels:
+        app.network/private-cloud-network: "true"
+        app: gateway-service
+    spec:
+      containers:
+      - env:
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://eureka-server-1:8761/eureka/
+        - name: spring.cloud.config.uri
+          value: http://config-server:8888
+        - name: spring.zipkin.baseUrl
+          value: http://zipkin:9411/
+        image: gateway-service:latest
+        imagePullPolicy: Never
+        name: gateway-service
+        ports:
+        - containerPort: 8084
+      restartPolicy: Always

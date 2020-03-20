@@ -1,4 +1,4 @@
-version: "2.2"
+version: "3"
 
 volumes:
    postgres_data:
@@ -7,6 +7,7 @@ volumes:
 services:
    config-server:
     build: ./config-server 
+    image: config-server:latest 
     ports:
       - "8888:8888"
     networks:
@@ -72,6 +73,7 @@ services:
    
    eureka-server-1:
     build: ./eurekaserver 
+    image: eureka-server-1:latest 
     ports:
       - "8761:8761"
     environment:
@@ -124,6 +126,7 @@ services:
 
    atm-service:
     build: ./atm-service 
+    image: atm-service:latest 
     ports:
       - "8082:8082"
     depends_on:
@@ -142,11 +145,16 @@ services:
       spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://keycloak:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
       spring.zipkin.baseUrl: http://zipkin:9411/
       LOGSTASH_URL: logstash:5000
+      spring.data.mongodb.host: localhost
+      spring.data.mongodb.port: 27017
+      spring.data.mongodb.database: atm_db
+      
     networks:
       - private-cloud-network
       
    bank-service:
     build: ./bank-service
+    image: bank-service:latest 
     ports:
       - "8081:8081"
     depends_on:
@@ -165,11 +173,15 @@ services:
       spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://keycloak:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
       spring.zipkin.baseUrl: http://zipkin:9411/
       LOGSTASH_URL: logstash:5000
+      spring.data.mongodb.host: localhost
+      spring.data.mongodb.port: 27017
+      spring.data.mongodb.database: atm_db
     networks:
       - private-cloud-network
       
    gateway-service:
     build: ./gateway
+    image: gateway-service:latest 
     ports:
       - "8084:8084"
     depends_on:

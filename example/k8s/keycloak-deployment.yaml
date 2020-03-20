@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: keycloak
+  name: keycloak
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 30114
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: keycloak
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: keycloak
+  name: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.network/private-cloud-network: "true"
+        app: keycloak
+    spec:
+      containers:
+      - args:
+        - -b
+        - 0.0.0.0
+        - -Dkeycloak.profile.feature.upload_scripts=enabled
+        - -Dkeycloak.import=/opt/jboss/keycloak/realm-api.json
+        env:
+        - name: DB_ADDR
+          value: postgres
+        - name: DB_DATABASE
+          value: keycloak
+        - name: DB_PASSWORD
+          value: password
+        - name: DB_USER
+          value: keycloak
+        - name: DB_VENDOR
+          value: POSTGRES
+        - name: KEYCLOAK_PASSWORD
+          value: admin
+        - name: KEYCLOAK_USER
+          value: admin
+        image: jboss/keycloak
+        imagePullPolicy: IfNotPresent
+        name: keycloak
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

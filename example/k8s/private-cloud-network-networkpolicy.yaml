@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: private-cloud-network
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app.network/private-cloud-network: "true"
+  podSelector:
+    matchLabels:
+      app.network/private-cloud-network: "true"

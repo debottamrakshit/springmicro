@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: atm-service
+  name: atm-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atm-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.network/private-cloud-network: "true"
+        app: atm-service
+    spec:
+      containers:
+      - env:
+        - name: LOGSTASH_URL
+          value: logstash:5000
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://eureka-server-1:8761/eureka/
+        - name: spring.cloud.config.uri
+          value: http://config-server:8888
+        - name: spring.data.mongodb.database
+          value: atm_db
+        - name: spring.data.mongodb.host
+          value: localhost
+        - name: spring.data.mongodb.port
+          value: "27017"
+        - name: spring.security.oauth2.resourceserver.jwt.jwk-set-uri
+          value: http://keycloak:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
+        - name: spring.zipkin.baseUrl
+          value: http://zipkin:9411/
+        image: atm-service:latest
+        imagePullPolicy: Never
+        name: atm-service
+        ports:
+        - containerPort: 8082
+      restartPolicy: Always
