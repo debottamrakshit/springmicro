@@ -1,4 +1,27 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-config
+  labels:
+    app: logstash
+data:
+  logstash.conf: "
+    input { 
+    	tcp { 
+    		port => 5000 
+    		codec => \"json\" 
+    	} 
+    } 
+    output { 
+    	elasticsearch { 
+    		hosts => [\"elasticsearch:9200\"] 
+    		index => \"micro-%{serviceName}\"
+    	  } 
+    }"
+
+---
+
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -37,4 +60,14 @@ spec:
         name: logstash
         ports:
         - containerPort: 5000
+        volumeMounts:
+        - mountPath: /usr/share/logstash/pipeline
+          name: pipeline
+      volumes:
+      - name: pipeline
+        configMap:
+          name: logstash-config
+          items:
+          - key: logstash.conf
+            path: logstash.conf
       restartPolicy: Always
