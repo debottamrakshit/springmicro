@@ -59,4 +59,14 @@ spec:
         name: keycloak
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - mountPath: /opt/jboss/keycloak
+          name: config-data
+      volumes:
+      - name: config-data
+        configMap:
+          name: keycloak-config
+          items:
+          - key: realm-api.json
+            path: realm-api.json
       restartPolicy: Always
