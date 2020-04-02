@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: eureka-server-2
+  zipkin:
+    baseUrl: http://zipkin:9411/
+server:
+  port: 8762
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server-1:8761/eureka
+    registerWithEureka: false
+    fetchRegistry: false

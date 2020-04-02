@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: gateway-service
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    databasePlatform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  port: 8084
+    
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server-1:8761/eureka,http://eureka-server-2:8762/eureka
+      fetchRegistry: true
+  instance:
+    preferIpAddress: true
+  server:
+    eviction-interval-timer-in-ms: 1000
+
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  routes:
+    atm:
+      path: /atm/**
+      serviceId: atm-service
+      strip-prefix: false
+    bank:
+      path: /bank/**
+      serviceId: bank-service
+      strip-prefix: false
+  ratelimit:
+    enabled: true
+    repository: JPA
+    policy-list:
+      atm:
+        - limit: 5
+          refresh-interval: 60
+          type:
+            - origin
+      bank:
+        - limit: 1
+          refresh-interval: 2
+          type:
+            - origin

@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: bank-service
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://keycloak:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: testDB
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server-1:8761/eureka,http://eureka-server-2:8762/eureka
+      fetchRegistry: true
+  instance:
+    preferIpAddress: true
+  server:
+    eviction-interval-timer-in-ms: 1000
+    
+management:
+  endpoints:
+    web:
+      base-path: /bank
+      exposure:
+        include: "*"
