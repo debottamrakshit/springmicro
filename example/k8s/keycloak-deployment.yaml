@@ -38,7 +38,7 @@ spec:
         - -b
         - 0.0.0.0
         - -Dkeycloak.profile.feature.upload_scripts=enabled
-        - -Dkeycloak.import=/opt/jboss/keycloak/realm-api.json
+        - -Dkeycloak.import=/tmp/realm-api.json
         env:
         - name: DB_ADDR
           value: postgres
@@ -60,7 +60,7 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - mountPath: /opt/jboss/keycloak
+        - mountPath: /tmp
           name: config-data
       volumes:
       - name: config-data

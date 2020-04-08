@@ -33,26 +33,10 @@ spec:
     spec:
       containers:
       - env:
-        - name: LOGSTASH_URL
-          value: logstash:5000
-        - name: eureka.client.serviceUrl.defaultZone
-          value: http://eureka-server-1:8761/eureka/
+        - name: spring.profiles.active
+          value: dev
         - name: spring.cloud.config.uri
           value: http://config-server:8888
-        - name: spring.data.mongodb.database
-          value: testDB
-        - name: spring.data.mongodb.host
-          value: localhost
-        - name: spring.data.mongodb.port
-          value: "27017"
-        - name: spring.data.mongodb.username
-          value: admin
-        - name: spring.data.mongodb.password
-          value: admin
-        - name: spring.security.oauth2.resourceserver.jwt.jwk-set-uri
-          value: http://keycloak:8080/auth/realms/microserviceexample/protocol/openid-connect/certs
-        - name: spring.zipkin.baseUrl
-          value: http://zipkin:9411/
         image: bank-service:latest
         imagePullPolicy: Never
         name: bank-service

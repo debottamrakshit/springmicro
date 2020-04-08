@@ -1,4 +1,15 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-initdb
+  labels:
+    app: mongodb
+data:
+  setup.sh: "mongo admin -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval \"db.getSiblingDB('$MONGO_APPLICATION_DATABASE').createUser({user: '$MONGO_APPLICATION_USERNAME', pwd: '$MONGO_APPLICATION_PASSWORD', roles: [{role: 'readWrite', db: '$MONGO_APPLICATION_DATABASE'}]});\""
+
+---
+
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
@@ -20,8 +31,9 @@ metadata:
     app: mongodb
   name: mongodb
 spec:
+  type: NodePort
   ports:
-  - name: "27017"
+  - nodePort: 30119
     port: 27017
     targetPort: 27017
   selector:
@@ -50,22 +62,31 @@ spec:
     spec:
       containers:
       - env:
-        - name: MONGO_INITDB_DATABASE
+        - name: MONGO_APPLICATION_DATABASE
           value: testDB
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: admin
         - name: MONGO_INITDB_ROOT_USERNAME
           value: admin
+        - name: MONGO_APPLICATION_PASSWORD
+          value: user
+        - name: MONGO_APPLICATION_USERNAME
+          value: user
         image: mongo:latest
         imagePullPolicy: IfNotPresent
         name: mongodb
         ports:
         - containerPort: 27017
         volumeMounts:
-        - mountPath: /data/db
-          name: mongodb-data
+        - name: mongodb-data
+          mountPath: /data/db
+        - name: mongo-initdb
+          mountPath: /docker-entrypoint-initdb.d
       restartPolicy: Always
       volumes:
       - name: mongodb-data
         persistentVolumeClaim:
           claimName: mongodb-data
+      - name: mongo-initdb
+        configMap:
+          name: mongo-initdb

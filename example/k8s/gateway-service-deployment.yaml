@@ -34,12 +34,10 @@ spec:
     spec:
       containers:
       - env:
-        - name: eureka.client.serviceUrl.defaultZone
-          value: http://eureka-server-1:8761/eureka/
+        - name: spring.profiles.active
+          value: dev
         - name: spring.cloud.config.uri
           value: http://config-server:8888
-        - name: spring.zipkin.baseUrl
-          value: http://zipkin:9411/
         image: gateway-service:latest
         imagePullPolicy: Never
         name: gateway-service

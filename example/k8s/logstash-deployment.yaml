@@ -32,6 +32,9 @@ spec:
   - name: "5000"
     port: 5000
     targetPort: 5000
+  - name: "9600"
+    port: 9600
+    targetPort: 9600
   selector:
     app: logstash
 

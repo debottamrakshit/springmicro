@@ -2,16 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: eureka-server-1
-  name: eureka-server-1
+    app: eureka-server-2
+  name: eureka-server-2
 spec:
   type: NodePort
   ports:
-  - nodePort: 30116
-    port: 8761
-    targetPort: 8761
+  - nodePort: 30146
+    port: 8762
+    targetPort: 8762
   selector:
-    app: eureka-server-1
+    app: eureka-server-2
 
 ---
 
@@ -19,28 +19,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: eureka-server-1
-  name: eureka-server-1
+    app: eureka-server-2
+  name: eureka-server-2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: eureka-server-1
+      app: eureka-server-2
   template:
     metadata:
       labels:
         app.network/private-cloud-network: "true"
-        app: eureka-server-1
+        app: eureka-server-2
     spec:
       containers:
       - env:
         - name: spring.profiles.active
           value: dev
+        - name: spring.cloud.config.name
+          value: eureka-server-2
         - name: spring.cloud.config.uri
           value: http://config-server:8888
         image: eureka-server-1:latest
         imagePullPolicy: Never
-        name: eureka-server-1
+        name: eureka-server-2
         ports:
-        - containerPort: 8761
+        - containerPort: 8762
       restartPolicy: Always

@@ -13,6 +13,8 @@ spring:
       host: mongodb
       port: 27017
       database: testDB
+      username: user
+      password: user
 
 server:
   port: 8082
