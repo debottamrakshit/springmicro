@@ -49,7 +49,7 @@ zuul:
           type:
             - origin
       bank:
-        - limit: 1
-          refresh-interval: 2
+        - limit: 20
+          refresh-interval: 1
           type:
             - origin

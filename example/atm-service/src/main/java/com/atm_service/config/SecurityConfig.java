@@ -1,5 +1,7 @@
 package com.atm_service.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +16,7 @@ import feign.RequestInterceptor;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	private Logger log = LoggerFactory.getLogger(WebSecurityConfigurerAdapter.class);
 	public static final String AUTHORIZATION_HEADER_KEY = "Authorization";
 	public static final String BEARER_TYPE = "Bearer ";
 
@@ -30,9 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public RequestInterceptor requestInterceptor() {
 		return requestTemplate -> {
-			requestTemplate.header(AUTHORIZATION_HEADER_KEY,
-					BEARER_TYPE + ((JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication())
-							.getToken().getTokenValue());
+			try {
+				requestTemplate.header(AUTHORIZATION_HEADER_KEY,
+						BEARER_TYPE + ((JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication())
+								.getToken().getTokenValue());
+			}catch (Exception e) {
+				log.error("ERROR : ", e);
+			}
 		};
 	}
 }
